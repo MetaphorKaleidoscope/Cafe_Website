@@ -2,6 +2,10 @@
 
 A website that lists cafes with wifi and power for remote working
 
-<h2 align="center">
-  <img src="cafe_website.mp4" alt="Devfolio" />
-</h2>
+https://github.com/MetaphorKaleidoscope/Cafe_Website/assets/130718219/bd035dd7-c882-49c9-965b-36e312d75b80
+
+
+
+
+
+
