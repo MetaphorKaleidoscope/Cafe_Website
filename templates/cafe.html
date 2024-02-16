@@ -1,0 +1,100 @@
+{% include "header.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{cafe.img_url}}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="cafe-heading">
+            <h1>{{cafe.name}}</h1>
+            <h2 class="subheading">{{cafe.location}}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cafe Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+
+
+            <h2 class="classification">PRODUCTIVITY</h2>
+            <ul class="productivity list">
+                <li>
+                    {% if cafe.has_wifi %}
+                    <p class="cafe-has_wifi" style="color:green">wifi </p>
+                    {% else %}
+                    <p class="cafe-has_wifi" style="color:yellow">wifi </p>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if cafe.has_sockets %}
+                    <p class="cafe-has_sockets" style="color:green">power sockets</p>
+                    {% else %}
+                    <p class="cafe-has_sockets" style="color:yellow">power sockets</p>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if cafe.can_take_calls %}
+                    <p class="cafe-can_take_calls" style="color:green">video/audio calls</p>
+                    {% else %}
+                    <p class="cafe-can_take_calls" style="color:yellow">video/audio calls</p>
+                    {% endif %}
+                </li>
+            </ul>
+            <h2 class="classification">SPACE</h2>
+            <ul class="space list">
+                <li>
+                    <p class="cafe-seats">seats: {{cafe.seats}}</p>
+                </li>
+            </ul>
+            <h2 class="classification">LOCATION</h2>
+            <ul class="location list">
+                <li>
+                    <a class="cafe-map_url" href=" {{ cafe['map_url']}} ">map link</a>
+                </li>
+            </ul>
+          <hr>
+
+            <div class="clearfix">
+              {% if current_user.id == 1 %}
+            <a class="btn btn-primary float-right" href="{{url_for('edit_cafe', cafe_id=cafe.id)}}">Edit Cafe</a>
+              {% endif %}
+            </div>
+
+
+
+<!--           Comments Area -->
+          <div class="col-lg-8 col-md-10 mx-auto comment">
+              <ul class="commentList">
+                  {% if comments: %}
+                    {% for comment in comments %}
+                        <li>
+                            <div class="commenterImage">
+                                <img src="{{ comment.users.email | gravatar }}">
+                            </div>
+                            <div class="commentText">
+                                <p>{{ comment.comment|safe }}</p>
+                                <span class="date sub-text ">{{comment.users.name}}</span>
+                            </div>
+                        </li>
+                    {% endfor %}
+                  {% endif %}
+              </ul>
+            </div>
+                              {{ ckeditor.load() }}
+                              {{ ckeditor.config(name='comment') }}
+                              {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+
+
+          </div>
+      </div>
+    </div>
+  </article>
+
+  <hr>
+{% include "footer.html" %}

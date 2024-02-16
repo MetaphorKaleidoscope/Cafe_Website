@@ -1,0 +1,58 @@
+{% include "header.html" %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('static/img/cafe-website.png')" >
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Cafe Website</h1>
+            <span class="subheading">Cafe website to work remotely. </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% for cafe in all_cafes %}
+        <div class="cafe-preview">
+          <a href="{{ url_for('show_cafe', cafe_id=cafe.id) }}">
+            <h2 class="cafe-name">
+              {{cafe['name']}}
+            </h2>
+            <p class="cafe-img_url">
+              <img src=" {{cafe['img_url']}} " alt="" style="float:left;width: 100px;height:100px;padding: 15px">
+            </p>
+          </a>
+            <p class="cafe-meta"> Location:
+            <a href="{{ url_for('show_cafe', cafe_id=cafe.id) }}">{{ cafe['location'] }}</a>
+            </p>
+          <p class="cafe-map_url">
+            <a href=" {{ cafe['map_url']}} ">map link</a>
+          </p>
+          <p class="cafe-delete">
+            {% if current_user.id == 1 %}
+            <a href="{{url_for('delete_cafe', cafe_id=cafe.id) }}">✘</a>
+            {% endif %}
+          </p>
+        </div>
+        <hr>
+        {% endfor %}
+
+        <!-- New Cafe -->
+        <div class="clearfix">
+          {% if current_user.is_authenticated and current_user.id == 1 %}
+          <a class="btn btn-primary float-right" href="{{url_for('add_new_cafe')}}">Add New Cafeteria</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+{% include "footer.html" %}
